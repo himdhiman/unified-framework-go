@@ -24,13 +24,17 @@ func LoadConfig(filename string, customValidators map[string]validator.Func) (*m
 
 	validate := validator.New()
 
+	if customValidators == nil {
+		customValidators = make(map[string]validator.Func)
+	}
+
 	customValidators["handlerconfig"] = validators.ValidateHandlerConfig
 	customValidators["databasetypeconfig"] = validators.ValidateDataBaseConfig
 
 	for tag, customValidator := range customValidators {
 		if err := validate.RegisterValidation(tag, customValidator); err != nil {
-            return nil, fmt.Errorf("error registering custom validator '%s': %w", tag, err)
-        }
+			return nil, fmt.Errorf("error registering custom validator '%s': %w", tag, err)
+		}
 	}
 
 	if err := validate.Struct(&cfg); err != nil {
