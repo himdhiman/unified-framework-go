@@ -29,7 +29,7 @@ func LoadConfig(filename string, customValidators map[string]validator.Func) (*m
 	}
 
 	customValidators["handlerconfig"] = validators.ValidateHandlerConfig
-	customValidators["databasetypeconfig"] = validators.ValidateDataBaseConfig
+	customValidators["databaseconfig"] = validators.ValidateDataBaseConfig
 
 	for tag, customValidator := range customValidators {
 		if err := validate.RegisterValidation(tag, customValidator); err != nil {

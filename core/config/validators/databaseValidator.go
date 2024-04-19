@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	NoSQL  = "NoSQL"
-	SQL = "SQL"
+	NoSQL = "NoSQL"
+	SQL   = "SQL"
 )
 
 func isSupportedDataBase(databaseType string) bool {
@@ -19,7 +19,6 @@ func isSupportedDataBase(databaseType string) bool {
 	}
 	return false
 }
-
 
 var ValidateDataBaseConfig validator.Func = func(fl validator.FieldLevel) bool {
 	if handlerConfig, ok := fl.Field().Interface().([]models.Database); ok {
@@ -33,5 +32,3 @@ var ValidateDataBaseConfig validator.Func = func(fl validator.FieldLevel) bool {
 	fmt.Printf("Error: field is not a slice of DataBaseConfig, error occured while loading DataBase Configuearion")
 	return true
 }
-
-
