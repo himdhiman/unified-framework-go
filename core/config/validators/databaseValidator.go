@@ -21,14 +21,18 @@ func isSupportedDataBase(databaseType string) bool {
 }
 
 var ValidateDataBaseConfig validator.Func = func(fl validator.FieldLevel) bool {
-	if handlerConfig, ok := fl.Field().Interface().([]models.Database); ok {
-		for _, config := range handlerConfig {
+	if databaseConfig, ok := fl.Field().Interface().([]models.Database); ok {
+		if len(databaseConfig) == 0 {
+			return true
+		}
+		for _, config := range databaseConfig {
 			if !isSupportedDataBase(config.Type) {
 				fmt.Printf("Invalid DataBase Type: %s\n", config.Type)
 				return false
 			}
 		}
+	} else {
+		fmt.Printf("Error: field is not a slice of DataBaseConfig, error occured while loading DataBase Configuration")
 	}
-	fmt.Printf("Error: field is not a slice of DataBaseConfig, error occured while loading DataBase Configuearion")
 	return true
 }

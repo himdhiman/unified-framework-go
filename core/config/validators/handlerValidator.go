@@ -28,8 +28,8 @@ var ValidateHandlerConfig validator.Func = func(fl validator.FieldLevel) bool {
 				return false
 			}
 		}
+	} else {
+		fmt.Printf("Error: field is not a slice of HandlerConfig, error occured while loading Handler Configuearion")
 	}
-	fmt.Printf("Error: field is not a slice of HandlerConfig, error occured while loading Handler Configuearion")
 	return true
 }
-
